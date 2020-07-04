@@ -1,0 +1,138 @@
+{
+    "settings": {
+        "analysis": {
+            "filter": {
+                "gramFilter": {
+                    "type": "nGram",
+                    "min_gram": 3,
+                    "max_gram": 4,
+                    "token_chars": [
+                        "letter",
+                        "digit",
+                        "punctuation"
+                    ]
+                }
+            },
+            "analyzer": {
+                "gramAnalyzer": {
+                    "type": "custom",
+                    "tokenizer": "whitespace",
+                    "filter": [
+                        "lowercase",
+                        "gramFilter",
+                        "uppercase"
+                    ]
+                },
+                "whitespaceAnalyzer": {
+                    "type": "custom",
+                    "tokenizer": "whitespace",
+                    "filter": [
+                        "lowercase"
+                    ]
+                },
+                "edge_ngram_analyzer": {
+                    "tokenizer": "my_tokenizer"
+                  }
+            }
+        },
+        "tokenizer": {
+            "my_tokenizer": {
+              "type": "edge_ngram",
+              "min_gram": 2,
+              "max_gram": 10,
+              "token_chars": [
+                "letter",
+                "digit"
+              ]
+            }
+        }
+    },
+    "mappings": {
+        "book": {
+            "properties": {
+                "Title": {
+                    "type": "completion",
+                    "analyzer": "edge_ngram_analyzer",
+                    "search_analyzer": "whitespaceAnalyzer"
+                },
+                "authors": {
+                    "type": "completion",
+                    "analyzer": "edge_ngram_analyzer",
+                    "search_analyzer": "whitespaceAnalyzer"
+                },
+                "average_rating": {
+                    "type": "integer"
+                },
+                "average_rating_rounded": {
+                    "type": "integer"
+                },
+                "books_count": {
+                    "type": "integer"
+                },
+                "_id": {
+                    "type": "integer"
+                },
+                "image": {
+                    "type": "string"
+                },
+                "isbn": {
+                    "type": "text"
+                },
+                "language_code": {
+                    "type": "string"
+                },
+                "original_publication_year": {
+                    "type": "integer"
+                },
+                "original_series": {
+                        "type": "text",
+                        "fields": {
+                          "keyword": {
+                            "type": "keyword",
+                            "ignore_above": 1000
+                          }
+                        }
+                },
+                "original_title": {
+                    "type": "text",
+                        "fields": {
+                          "keyword": {
+                            "type": "keyword",
+                            "ignore_above": 1000
+                          }
+                        },
+                    "analyzer": "edge_ngram_analyzer",
+                    "search_analyzer": "whitespaceAnalyzer"
+                },
+                "ratings_count": {
+                    "type": "integer"
+                },
+                "title": {
+                    "type": "text",
+                        "fields": {
+                          "keyword": {
+                            "type": "keyword",
+                            "ignore_above": 256
+                          }
+                        },
+                    "analyzer": "edge_ngram_analyzer",
+                    "search_analyzer": "whitespaceAnalyzer"
+                },
+                "name": {
+                    "analyzer": "standard",
+                    "fields": {
+                      "autocomplete": {
+                        "analyzer": "edge_ngram_analyzer",
+                        "max_input_length": 10,
+                        "payloads": false,
+                        "preserve_position_increments": false,
+                        "preserve_separators": false,
+                        "type": "completion"
+                      }
+                    },
+                    "type": "string"
+                  }
+            }
+        }
+    }
+}

@@ -1,0 +1,48 @@
+// {
+//     "suggest": {
+//         "my-suggestion": {
+//             "prefix": "bayo",
+//             "term": {
+//                 "field": "original_title"
+//             }
+//         }
+//     }
+// }
+// {
+//     "query": {
+//         "bool": {
+//             "must": {
+//                 "match": {
+//                     "title": "bayou"
+//                 }
+//             }
+//         }
+//     }
+// }
+// {
+//     "query": {
+//         "regexp": {
+//             "authors": {
+//                 "value": "du.*",
+//                 "flags" : "ALL",
+//                 "max_determinized_states": 100,
+//                 "rewrite": "constant_score"
+//             }
+//         }
+//     }
+// }
+
+// {
+//     "query": {
+//     "match_phrase_prefix": {
+//       "authors": {
+//         "max_expansions": 25,
+//         "query": "ada"
+//       }
+//     }
+//   }
+// }
+
+// {
+//   "query": { "prefix": { "name.keyword": "El" } }
+// }
