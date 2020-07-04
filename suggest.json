@@ -31,7 +31,6 @@
 //         }
 //     }
 // }
-
 // {
 //     "query": {
 //     "match_phrase_prefix": {
@@ -42,7 +41,38 @@
 //     }
 //   }
 // }
-
 // {
 //   "query": { "prefix": { "name.keyword": "El" } }
+// }
+// {
+//     "query": {
+//         "intervals": {
+//             "original_title": {
+//                 "all_of": {
+//                     "ordered": true,
+//                     "intervals": [
+//                         {
+//                             "fuzzy": {
+//                                 "term": "inside",
+//                                 "fuzziness": "4",
+//                                 "use_field": "original_title"
+//                             }
+//                         }
+//                     ]
+//                 }
+//             }
+//         }
+//     },
+//     "sort": [
+//         {
+//             "average_rating": {
+//                 "order": "desc"
+//             }
+//         },
+//         {
+//             "original_publication_year": {
+//                 "order": "desc"
+//             }
+//         }
+//     ]
 // }
